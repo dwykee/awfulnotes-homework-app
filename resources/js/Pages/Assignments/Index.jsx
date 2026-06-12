@@ -363,11 +363,9 @@ function AddModal({ onClose, teams }) {
         router.post(route("assignments.store"), form, { onFinish: () => { setLoading(false); onClose(); }, preserveScroll: true });
     };
     return (
-        <div style={{ position: "fixed", inset: 0, background: "rgba(7,89,133,0.35)", display: "flex", alignItems: "flex-end", justifyContent: "center", zIndex: 100, backdropFilter: "blur(6px)" }} onClick={onClose}>
-            <div style={{ background: "#fff", borderRadius: "22px 22px 0 0", padding: "24px 20px", width: "100%", maxWidth: 520, maxHeight: "92vh", overflowY: "auto", boxShadow: "0 -8px 40px rgba(7,89,133,0.2)" }} onClick={e => e.stopPropagation()}>
-                {/* drag handle */}
-                <div style={{ width: 40, height: 4, borderRadius: 2, background: T.border, margin: "0 auto 20px" }} />
-                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 22 }}>
+        <div style={{ position: "fixed", inset: 0, background: "rgba(7,89,133,0.35)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 100, backdropFilter: "blur(6px)", padding: "16px" }} onClick={onClose}>
+            <div style={{ background: "#fff", borderRadius: 22, padding: "20px", width: "100%", maxWidth: 520, maxHeight: "80vh", overflowY: "auto", boxShadow: "0 32px 80px rgba(7,89,133,0.25)" }} onClick={e => e.stopPropagation()}>
+                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 18 }}>
                     <img src="/images/tugasbaru.gif" style={{ width: 32, height: 32 }} />
                     <div>
                         <h2 style={{ color: T.text, fontSize: 17, fontWeight: 800, margin: 0 }}>Add a new Assignment</h2>
@@ -376,35 +374,35 @@ function AddModal({ onClose, teams }) {
                 </div>
                 <form onSubmit={handleSubmit}>
                     {[{ key: "title", label: "Title *", placeholder: "e.g. Science" }, { key: "subject", label: "Subject *", placeholder: "e.g. Management" }, { key: "lecturer", label: "Lecturer", placeholder: "e.g. Prof. Dr. Siti Rahayu" }, { key: "notes", label: "Notes / Instructions", placeholder: "Task details, references..." }].map(({ key, label, placeholder }) => (
-                        <div key={key} style={{ marginBottom: 13 }}>
-                            <label style={{ fontSize: 11, fontWeight: 700, color: T.textMid, display: "block", marginBottom: 5, textTransform: "uppercase", letterSpacing: "0.07em" }}>{label}</label>
+                        <div key={key} style={{ marginBottom: 8 }}>
+                            <label style={{ fontSize: 11, fontWeight: 700, color: T.textMid, display: "block", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.07em" }}>{label}</label>
                             <input placeholder={placeholder} value={form[key]} onChange={e => setForm(p => ({ ...p, [key]: e.target.value }))} style={iStyle()} />
                         </div>
                     ))}
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 13 }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 8 }}>
                         {[{ key: "status", label: "Status", opts: Object.keys(STATUS).map(s => ({ v: s, l: STATUS[s].label })) }, { key: "priority", label: "Priority", opts: Object.keys(PRIORITY).map(p => ({ v: p, l: PRIORITY[p].label })) }, { key: "type", label: "Type", opts: [{ v: "", l: "-- Select --" }, ...TYPES.map(tp => ({ v: tp, l: tp }))] }].map(({ key, label, opts }) => (
                             <div key={key}>
-                                <label style={{ fontSize: 11, fontWeight: 700, color: T.textMid, display: "block", marginBottom: 5, textTransform: "uppercase", letterSpacing: "0.07em" }}>{label}</label>
+                                <label style={{ fontSize: 11, fontWeight: 700, color: T.textMid, display: "block", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.07em" }}>{label}</label>
                                 <select value={form[key]} onChange={e => setForm(p => ({ ...p, [key]: e.target.value }))} style={iStyle()}>{opts.map(o => <option key={o.v} value={o.v}>{o.l}</option>)}</select>
                             </div>
                         ))}
                         <div>
-                            <label style={{ fontSize: 11, fontWeight: 700, color: T.textMid, display: "block", marginBottom: 5, textTransform: "uppercase", letterSpacing: "0.07em" }}>Deadline</label>
+                            <label style={{ fontSize: 11, fontWeight: 700, color: T.textMid, display: "block", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.07em" }}>Deadline</label>
                             <input type="date" value={form.deadline} onChange={e => setForm(p => ({ ...p, deadline: e.target.value }))} style={iStyle()} />
                         </div>
                     </div>
                     {teams.length > 0 && (
-                        <div style={{ marginBottom: 18 }}>
-                            <label style={{ fontSize: 11, fontWeight: 700, color: T.textMid, display: "block", marginBottom: 5, textTransform: "uppercase", letterSpacing: "0.07em" }}>Assign to Team (optional)</label>
+                        <div style={{ marginBottom: 10 }}>
+                            <label style={{ fontSize: 11, fontWeight: 700, color: T.textMid, display: "block", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.07em" }}>Assign to Team (optional)</label>
                             <select value={form.team_id} onChange={e => setForm(p => ({ ...p, team_id: e.target.value }))} style={iStyle()}>
                                 <option value="">-- Personal --</option>
                                 {teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
                             </select>
                         </div>
                     )}
-                    <div style={{ display: "flex", gap: 10 }}>
-                        <button type="button" onClick={onClose} style={{ flex: 1, padding: 12, borderRadius: 11, background: T.surfaceAlt, border: `1px solid ${T.border}`, color: T.textMid, fontSize: 13, fontWeight: 700, cursor: "pointer" }}>Cancel</button>
-                        <button type="submit" disabled={loading} style={{ flex: 2, padding: 12, borderRadius: 11, background: `linear-gradient(135deg, ${T.primary}, ${T.accent})`, border: "none", color: "#fff", fontSize: 13, fontWeight: 700, cursor: loading ? "not-allowed" : "pointer", opacity: loading ? 0.75 : 1 }}>
+                    <div style={{ display: "flex", gap: 10, marginTop: 12 }}>
+                        <button type="button" onClick={onClose} style={{ flex: 1, padding: 11, borderRadius: 11, background: T.surfaceAlt, border: `1px solid ${T.border}`, color: T.textMid, fontSize: 13, fontWeight: 700, cursor: "pointer" }}>Cancel</button>
+                        <button type="submit" disabled={loading} style={{ flex: 2, padding: 11, borderRadius: 11, background: `linear-gradient(135deg, ${T.primary}, ${T.accent})`, border: "none", color: "#fff", fontSize: 13, fontWeight: 700, cursor: loading ? "not-allowed" : "pointer", opacity: loading ? 0.75 : 1 }}>
                             {loading ? "Saving..." : "Add Assignment"}
                         </button>
                     </div>

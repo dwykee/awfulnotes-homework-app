@@ -1,178 +1,283 @@
-import { useEffect, useRef, useState } from 'react';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { useState } from "react";
+import { Head, Link, useForm } from "@inertiajs/react";
 
 export default function Login({ status, canResetPassword }) {
+    const [showPassword, setShowPassword] = useState(false);
+
     const { data, setData, post, processing, errors, reset } = useForm({
-        email: '', password: '', remember: false,
+        email: "",
+        password: "",
+        remember: false,
     });
-
-    const [quoteIdx, setQuoteIdx] = useState(0);
-    const [quoteVisible, setQuoteVisible] = useState(true);
-    const [eyePos, setEyePos] = useState({ x: 0, y: 0 });
-    const [showPass, setShowPass] = useState(false);
-    const [focused, setFocused] = useState(null);
-    const robotRef = useRef(null);
-
-    useEffect(() => {
-        const handle = (e) => {
-            if (!robotRef.current) return;
-            const rect = robotRef.current.getBoundingClientRect();
-            const cx = rect.left + rect.width / 2;
-            const cy = rect.top + rect.height / 2;
-            const dx = e.clientX - cx;
-            const dy = e.clientY - cy;
-            const angle = Math.atan2(dy, dx);
-            const dist = Math.min(4, Math.hypot(dx, dy) / 30);
-            setEyePos({ x: Math.cos(angle) * dist, y: Math.sin(angle) * dist });
-        };
-        window.addEventListener('mousemove', handle);
-        return () => window.removeEventListener('mousemove', handle);
-    }, []);
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('login'), { onFinish: () => reset('password') });
+        post(route("login"), {
+            onFinish: () => reset("password"),
+        });
     };
-
-    const inp = (isFocused) => ({
-        width: '100%', padding: '11px 14px', fontSize: 13, borderRadius: 10,
-        border: `2px solid ${isFocused ? '#800020' : '#e8d0d6'}`,
-        background: '#fdf5f7', color: '#1a1a1a', outline: 'none',
-        boxSizing: 'border-box', transition: 'border-color 0.2s, box-shadow 0.2s',
-        fontFamily: "'Nunito', sans-serif",
-        boxShadow: isFocused ? '0 0 0 3px rgba(128,0,32,0.12)' : 'none',
-    });
 
     return (
         <>
-            <Head title="Login — awfulnotes" />
-            <style>{`
-                @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Abril+Fatface&display=swap');
-                * { box-sizing: border-box; margin: 0; padding: 0; }
+            <Head title="Login" />
 
-                .login-card { animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both; }
-                @keyframes popIn { from{opacity:0;transform:scale(0.85) translateY(30px)} to{opacity:1;transform:scale(1) translateY(0)} }
+            <div className="h-screen w-full overflow-hidden flex antialiased" style={{ fontFamily: "Inter, sans-serif", background: "#f6faff", color: "#141d23" }}>
 
-                .quote-text { transition: opacity 0.4s, transform 0.4s; }
-                .quote-visible { opacity:1; transform:translateY(0); }
-                .quote-hidden  { opacity:0; transform:translateY(8px); }
+                {/* Left Side: Visual */}
+                <section className="hidden lg:flex w-1/2 relative items-center justify-center overflow-hidden" style={{ background: "#ecf5fe" }}>
+                    {/* Dot pattern */}
+                    <div
+                        className="absolute inset-0"
+                        style={{
+                            opacity: 0.08,
+                            backgroundImage: "radial-gradient(circle at 2px 2px, #a30000 1px, transparent 0)",
+                            backgroundSize: "32px 32px",
+                        }}
+                    />
 
-                @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-                .float { animation: float 3s ease-in-out infinite; }
-
-                @keyframes spin-btn { from{transform:rotate(0)} to{transform:rotate(360deg)} }
-
-                @keyframes gradMove { 0%{background-position:0%} 100%{background-position:200%} }
-
-                .submit-btn:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 10px 28px rgba(128,0,32,0.45)!important; }
-                .submit-btn:active:not(:disabled) { transform:translateY(0); }
-                .submit-btn { transition: transform 0.15s, box-shadow 0.15s; }
-
-                .register-link:hover { background:#fff0f3!important; }
-                .register-link { transition: background 0.15s; }
-
-                .err { color:#c0002a; font-size:11px; margin-top:5px; font-weight:700; display:flex; align-items:center; gap:4px; animation: fadeIn 0.25s ease; }
-                @keyframes fadeIn { from{opacity:0;transform:translateX(-6px)} to{opacity:1;transform:translateX(0)} }
-
-                @keyframes spin-slow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
-                .spin-slow { animation: spin-slow 14s linear infinite; }
-                .spin-rev   { animation: spin-slow 10s linear infinite reverse; }
-
-                @keyframes blink { 0%,90%,100%{transform:scaleY(1)} 95%{transform:scaleY(0.08)} }
-                .eye { animation: blink 4s infinite; }
-            `}</style>
-
-            <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg,#fff0f3 0%,#ffe4ea 60%,#ffd6df 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Nunito',sans-serif", padding: '20px', position: 'relative', overflow: 'hidden' }}>
-
-                {/* BG decorations */}
-                {[{e:'📚',t:'7%',l:'3%',r:'-10deg',s:36},{e:'✏️',t:'14%',r:'5%',l:undefined,r2:'20deg',s:32},{e:'☕',t:'74%',l:'2%',r:'-8deg',s:34},{e:'🎒',t:'76%',r:'4%',l:undefined,r2:'12deg',s:36},{e:'📎',t:'42%',l:'1%',r:'5deg',s:26},{e:'💡',t:'52%',r:'6%',l:undefined,r2:'18deg',s:28},{e:'⏰',t:'58%',l:'5%',r:'-20deg',s:28}].map((d,i)=>(
-                    <span key={i} style={{position:'absolute',top:d.t,left:d.l,right:d.r,fontSize:d.s,opacity:0.15,transform:`rotate(${d.r||d.r2||'0deg'})`,pointerEvents:'none',userSelect:'none'}}>{d.e}</span>
-                ))}
-                <div className="spin-slow" style={{position:'absolute',width:520,height:520,borderRadius:'50%',border:'2px dashed rgba(128,0,32,0.07)',top:'50%',left:'50%',transform:'translate(-50%,-50%)',pointerEvents:'none'}}/>
-                <div className="spin-rev"  style={{position:'absolute',width:340,height:340,borderRadius:'50%',border:'1.5px dashed rgba(128,0,32,0.05)',top:'50%',left:'50%',transform:'translate(-50%,-50%)',pointerEvents:'none'}}/>
-
-                <div className="login-card" style={{width:'100%',maxWidth:420,background:'#fff',borderRadius:28,boxShadow:'0 24px 80px rgba(128,0,32,0.18),0 0 0 1.5px rgba(128,0,32,0.08)',overflow:'hidden'}}>
-
-                    {/* Top candy stripe */}
-                    <div style={{height:6,background:'linear-gradient(90deg,#800020,#c0002a,#ff6b8a,#800020)',backgroundSize:'200% 100%',animation:'gradMove 3s linear infinite'}}/>
-
-                    {/* Header */}
-                    <div style={{background:'linear-gradient(160deg,#800020 0%,#5a0016 100%)',padding:'28px 32px 24px',textAlign:'center',position:'relative',overflow:'hidden'}}>
-                        <div style={{position:'absolute',inset:0,backgroundImage:'radial-gradient(circle,rgba(255,255,255,0.07) 1px,transparent 1px)',backgroundSize:'18px 18px',pointerEvents:'none'}}/>
-
-                        {/* Robot */}
-                        <div ref={robotRef} className="float" style={{display:'inline-flex',flexDirection:'column',alignItems:'center',marginBottom:14,position:'relative',zIndex:1}}>
-                            <div style={{position:'absolute',top:-20,left:'50%',transform:'translateX(-50%)',display:'flex',flexDirection:'column',alignItems:'center',gap:0}}>
-                                <div style={{width:10,height:10,borderRadius:'50%',background:'#ffcc00',boxShadow:'0 0 10px #ffcc00'}}/>
-                                <div style={{width:2,height:12,background:'rgba(255,255,255,0.35)'}}/>
-                            </div>
-                            <div style={{width:74,height:74,background:'rgba(255,255,255,0.15)',borderRadius:18,border:'2.5px solid rgba(255,255,255,0.3)',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:7,backdropFilter:'blur(4px)'}}>
-                                <div style={{display:'flex',gap:12}}>
-                                    {[0,1].map(i=>(
-                                        <div key={i} className="eye" style={{width:16,height:16,borderRadius:'50%',background:'#fff',display:'flex',alignItems:'center',justifyContent:'center',boxShadow:'0 0 0 2px rgba(255,255,255,0.25)'}}>
-                                            <div style={{width:7,height:7,borderRadius:'50%',background:'#800020',transform:`translate(${eyePos.x}px,${eyePos.y}px)`,transition:'transform 0.1s'}}/>
-                                        </div>
-                                    ))}
-                                </div>
-                                <div style={{width:28,height:8,borderRadius:4,background:'rgba(255,255,255,0.2)',border:'1.5px solid rgba(255,255,255,0.3)',display:'flex',alignItems:'center',justifyContent:'center',gap:3}}>
-                                    {[0,1,2].map(i=><div key={i} style={{width:3,height:3,borderRadius:'50%',background:'rgba(255,255,255,0.6)'}}/>)}
-                                </div>
-                            </div>
+                    <div className="relative z-10 p-12 max-w-lg">
+                        {/* Icon */}
+                        <div className="mb-8">
+                            <span className="material-symbols-outlined" style={{ fontSize: 64, color: "#a30000", fontVariationSettings: "'FILL' 1" }}>
+                                school
+                            </span>
                         </div>
 
-                        <div style={{fontSize:27,fontWeight:900,color:'#fff',fontFamily:"'Abril Fatface',serif",letterSpacing:'-0.5px',lineHeight:1,position:'relative',zIndex:1}}>awfulnotes</div>
-                        <div style={{fontSize:10,color:'rgba(255,255,255,0.55)',fontWeight:700,letterSpacing:'0.18em',marginTop:4,textTransform:'uppercase',position:'relative',zIndex:1}}>lazy collegers society</div>
+                        {/* Big headline */}
+                        <h1 style={{
+                            fontFamily: "Hanken Grotesk, sans-serif",
+                            fontSize: 48,
+                            lineHeight: "56px",
+                            fontWeight: 800,
+                            letterSpacing: "-0.02em",
+                            color: "#141d23",
+                            marginBottom: 24,
+                        }}>
+                            Master your workload.
+                            <br />
+                            <span style={{ color: "#a30000" }}>Conquer your goals.</span>
+                        </h1>
 
+                        <p style={{
+                            fontFamily: "Inter, sans-serif",
+                            fontSize: 18,
+                            lineHeight: "28px",
+                            color: "#5e3f3a",
+                        }}>
+                            awfulnotes is designed for the academic achiever. Streamline
+                            your assignments, track your progress, and reclaim your free
+                            time with a clear, systematic approach to studying.
+                        </p>
                     </div>
 
-                    {/* Form */}
-                    <div style={{padding:'26px 30px 30px'}}>
-                        {status && <div style={{marginBottom:16,padding:'10px 14px',borderRadius:10,background:'#f0fdf4',border:'1.5px solid #86efac',fontSize:13,color:'#166534',fontWeight:600}}>✅ {status}</div>}
+                    {/* Decorative blobs */}
+                    <div className="absolute -bottom-24 -left-24 w-96 h-96 rounded-full" style={{ background: "rgba(163,0,0,0.04)", filter: "blur(60px)" }} />
+                    <div className="absolute top-1/4 -right-24 w-64 h-64 rounded-full" style={{ background: "rgba(192,0,0,0.04)", filter: "blur(60px)" }} />
+                </section>
 
-                        <form onSubmit={submit}>
-                            <div style={{marginBottom:14}}>
-                                <label style={{fontSize:11,fontWeight:800,color:'#800020',display:'block',marginBottom:6,textTransform:'uppercase',letterSpacing:'0.08em'}}>Email</label>
-                                <input type="email" value={data.email} onChange={e=>setData('email',e.target.value)} onFocus={()=>setFocused('email')} onBlur={()=>setFocused(null)} placeholder="mahasiswa@univ.ac.id" autoComplete="username" style={inp(focused==='email')}/>
-                                {errors.email && <div className="err">⚠️ {errors.email}</div>}
+                {/* Right Side: Login Form */}
+                <section className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12" style={{ background: "#f6faff" }}>
+                    <div className="w-full max-w-[400px]">
+
+                        {/* Header */}
+                        <div className="text-center mb-10">
+                            <div className="inline-flex items-center justify-center mb-6">
+                                <img
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjQMO4UN8Nm50p4pSIvARHvavUZJwOXYrpAlChOtWsPiSg6Xv-7c1aQTPHy77UE1Eid0_Tur4Y9p7jrKCRa1_j3RQj3SsQbegntoNg69tOUjR-v6MfgPQLn0R42LLcNiZnw4A3No2Ag5uTrw7gR5e2ISAQNCx5k_xphJd2gjn1gjfRNDCQWVhIcYwS1kAeDpLlMKPWNZMK9E82qffOrwnnvDdeCgj4ZW2Pmls1sDHTgxaqT_SCs-cAVQ2l2zBwdtsi09VdvTcHd_k"
+                                    alt="awfulnotes logo"
+                                    className="h-16 w-auto object-contain"
+                                />
                             </div>
+                            <h2 style={{ fontFamily: "Hanken Grotesk, sans-serif", fontSize: 32, fontWeight: 700, color: "#141d23", marginBottom: 8 }}>
+                                Welcome back
+                            </h2>
+                            <p style={{ fontSize: 16, color: "#5e3f3a" }}>
+                                Enter your details to access your dashboard.
+                            </p>
+                        </div>
 
-                            <div style={{marginBottom:8}}>
-                                <label style={{fontSize:11,fontWeight:800,color:'#800020',display:'block',marginBottom:6,textTransform:'uppercase',letterSpacing:'0.08em'}}>Password</label>
-                                <div style={{position:'relative'}}>
-                                    <input type={showPass?'text':'password'} value={data.password} onChange={e=>setData('password',e.target.value)} onFocus={()=>setFocused('password')} onBlur={()=>setFocused(null)} placeholder="Your password" autoComplete="current-password" style={{...inp(focused==='password'),paddingRight:44}}/>
-                                    <button type="button" onClick={() => setShowPass(p => !p)} style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', fontSize: 11, fontWeight: 800, color: '#c48a96', padding: 2, letterSpacing: '0.02em' }}>{showPass ? 'HIDE' : 'SHOW'}</button>
-                                </div>
-                                {errors.password && <div className="err"> {errors.password}</div>}
+                        {/* Status message */}
+                        {status && (
+                            <div className="mb-4 text-sm font-medium px-4 py-3 rounded-lg" style={{ color: "#166534", background: "#f0fdf4" }}>
+                                {status}
                             </div>
+                        )}
 
-                            <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:20}}>
-                                <label style={{display:'flex',alignItems:'center',gap:7,cursor:'pointer',fontSize:12,color:'#888',fontWeight:700}}>
-                                    <input type="checkbox" checked={data.remember} onChange={e=>setData('remember',e.target.checked)} style={{accentColor:'#800020',width:14,height:14}}/>
-                                    Remember Me
+                        {/* Form */}
+                        <form onSubmit={submit} className="space-y-6">
+
+                            {/* Email */}
+                            <div>
+                                <label htmlFor="email" style={{ display: "block", fontSize: 12, fontWeight: 600, color: "#141d23", marginBottom: 4 }}>
+                                    Email
                                 </label>
-                                {canResetPassword && (
-                                    <Link href={route('password.request')} style={{fontSize:12,color:'#800020',fontWeight:800,textDecoration:'none'}}>forgot pass?</Link>
-                                )}
+                                <div className="relative">
+                                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none" style={{ color: "#5e3f3a" }}>
+                                        <span className="material-symbols-outlined" style={{ fontSize: 20 }}>mail</span>
+                                    </div>
+                                    <input
+                                        id="email"
+                                        type="email"
+                                        value={data.email}
+                                        onChange={(e) => setData("email", e.target.value)}
+                                        placeholder="student@university.edu"
+                                        required
+                                        autoComplete="username"
+                                        style={{
+                                            display: "block",
+                                            width: "100%",
+                                            paddingLeft: 40,
+                                            paddingRight: 12,
+                                            paddingTop: 12,
+                                            paddingBottom: 12,
+                                            background: "#fff",
+                                            border: `1px solid ${errors.email ? "#ba1a1a" : "#e8bcb6"}`,
+                                            borderRadius: 8,
+                                            fontSize: 16,
+                                            color: "#141d23",
+                                            outline: "none",
+                                            boxSizing: "border-box",
+                                        }}
+                                        onFocus={e => e.target.style.boxShadow = "0 0 0 2px #a30000"}
+                                        onBlur={e => e.target.style.boxShadow = "none"}
+                                    />
+                                </div>
+                                {errors.email && <p style={{ marginTop: 4, fontSize: 12, color: "#ba1a1a" }}>{errors.email}</p>}
                             </div>
 
-                            <button type="submit" disabled={processing} className="submit-btn" style={{width:'100%',padding:13,borderRadius:12,background:processing?'#c48a96':'linear-gradient(135deg,#800020,#a0002a)',border:'none',color:'#fff',fontSize:14,fontWeight:800,cursor:processing?'not-allowed':'pointer',boxShadow:'0 4px 18px rgba(128,0,32,0.35)',fontFamily:"'Nunito',sans-serif",display:'flex',alignItems:'center',justifyContent:'center',gap:8}}>
-                                {processing ? (
-                                    <><span style={{width:15,height:15,border:'2.5px solid rgba(255,255,255,0.35)',borderTopColor:'#fff',borderRadius:'50%',display:'inline-block',animation:'spin-btn 0.7s linear infinite'}}/>Masuk...</>
-                                ) : 'Login'}
+                            {/* Password */}
+                            <div>
+                                <div className="flex items-center justify-between" style={{ marginBottom: 4 }}>
+                                    <label htmlFor="password" style={{ fontSize: 12, fontWeight: 600, color: "#141d23" }}>
+                                        Password
+                                    </label>
+                                    {canResetPassword && (
+                                        <Link href={route("password.request")} style={{ fontSize: 12, fontWeight: 600, color: "#a30000", textDecoration: "none" }}>
+                                            Forgot Password?
+                                        </Link>
+                                    )}
+                                </div>
+                                <div className="relative">
+                                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none" style={{ color: "#5e3f3a" }}>
+                                        <span className="material-symbols-outlined" style={{ fontSize: 20 }}>lock</span>
+                                    </div>
+                                    <input
+                                        id="password"
+                                        type={showPassword ? "text" : "password"}
+                                        value={data.password}
+                                        onChange={(e) => setData("password", e.target.value)}
+                                        placeholder="••••••••"
+                                        required
+                                        autoComplete="current-password"
+                                        style={{
+                                            display: "block",
+                                            width: "100%",
+                                            paddingLeft: 40,
+                                            paddingRight: 44,
+                                            paddingTop: 12,
+                                            paddingBottom: 12,
+                                            background: "#fff",
+                                            border: `1px solid ${errors.password ? "#ba1a1a" : "#e8bcb6"}`,
+                                            borderRadius: 8,
+                                            fontSize: 16,
+                                            color: "#141d23",
+                                            outline: "none",
+                                            boxSizing: "border-box",
+                                        }}
+                                        onFocus={e => e.target.style.boxShadow = "0 0 0 2px #a30000"}
+                                        onBlur={e => e.target.style.boxShadow = "none"}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                                        style={{ color: "#5e3f3a", background: "none", border: "none", cursor: "pointer" }}
+                                    >
+                                        <span className="material-symbols-outlined" style={{ fontSize: 20 }}>
+                                            {showPassword ? "visibility" : "visibility_off"}
+                                        </span>
+                                    </button>
+                                </div>
+                                {errors.password && <p style={{ marginTop: 4, fontSize: 12, color: "#ba1a1a" }}>{errors.password}</p>}
+                            </div>
+
+                            {/* Remember Me */}
+                            <div className="flex items-center">
+                                <input
+                                    id="remember-me"
+                                    type="checkbox"
+                                    checked={data.remember}
+                                    onChange={(e) => setData("remember", e.target.checked)}
+                                    style={{ height: 16, width: 16, accentColor: "#a30000", cursor: "pointer" }}
+                                />
+                                <label htmlFor="remember-me" style={{ marginLeft: 8, fontSize: 14, color: "#5e3f3a", cursor: "pointer" }}>
+                                    Remember me for 30 days
+                                </label>
+                            </div>
+
+                            {/* Submit */}
+                            <button
+                                type="submit"
+                                disabled={processing}
+                                style={{
+                                    width: "100%",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    padding: "12px 16px",
+                                    border: "none",
+                                    borderRadius: 8,
+                                    fontSize: 12,
+                                    fontWeight: 600,
+                                    color: "#fff",
+                                    background: processing ? "#936e69" : "#d10000",
+                                    cursor: processing ? "not-allowed" : "pointer",
+                                    transition: "background 0.2s",
+                                }}
+                                onMouseEnter={e => { if (!processing) e.target.style.background = "#a30000"; }}
+                                onMouseLeave={e => { if (!processing) e.target.style.background = "#d10000"; }}
+                            >
+                                {processing ? "Signing in..." : "Sign In"}
                             </button>
                         </form>
 
-                        <div style={{display:'flex',alignItems:'center',gap:12,margin:'18px 0'}}>
-                            <div style={{flex:1,height:1,background:'#f0dde2'}}/>
-                            <span style={{fontSize:11,color:'#c48a96',fontWeight:700}}>Don't have an account?</span>
-                            <div style={{flex:1,height:1,background:'#f0dde2'}}/>
+                        {/* Divider */}
+                        <div className="mt-8 relative">
+                            <div className="absolute inset-0 flex items-center">
+                                <div className="w-full" style={{ borderTop: "1px solid #e8bcb6" }} />
+                            </div>
+                            <div className="relative flex justify-center">
+                                <span style={{ paddingLeft: 8, paddingRight: 8, background: "#f6faff", fontSize: 12, fontWeight: 600, color: "#5e3f3a" }}>
+                                    Or continue with
+                                </span>
+                            </div>
                         </div>
 
-                        <Link href={route('register')} className="register-link" style={{display:'flex',alignItems:'center',justifyContent:'center',gap:8,width:'100%',padding:12,borderRadius:12,border:'2px solid #800020',color:'#800020',fontSize:13,fontWeight:800,textDecoration:'none',background:'#fff',fontFamily:"'Nunito',sans-serif"}}>
-                            Register Now
-                        </Link>
+                        {/* SSO Buttons */}
+                        <div className="mt-6 grid grid-cols-2 gap-3">
+                            <button type="button" style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "10px 16px", border: "1px solid #e8bcb6", borderRadius: 8, background: "#fff", fontSize: 12, fontWeight: 600, color: "#141d23", cursor: "pointer" }}>
+                                <svg className="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none">
+                                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                                </svg>
+                                Google
+                            </button>
+                            <button type="button" style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "10px 16px", border: "1px solid #e8bcb6", borderRadius: 8, background: "#fff", fontSize: 12, fontWeight: 600, color: "#141d23", cursor: "pointer" }}>
+                                <span className="material-symbols-outlined mr-2" style={{ fontSize: 20 }}>school</span>
+                                Institution
+                            </button>
+                        </div>
+
+                        {/* Footer */}
+                        <p className="mt-10 text-center" style={{ fontSize: 14, color: "#5e3f3a" }}>
+                            Don't have an account?{" "}
+                            <Link href={route("register")} style={{ fontSize: 12, fontWeight: 600, color: "#a30000", textDecoration: "none" }}>
+                                Sign up for free
+                            </Link>
+                        </p>
                     </div>
-                </div>
+                </section>
             </div>
         </>
     );

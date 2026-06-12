@@ -4,6 +4,11 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+//landing route
+Route::get('/', function () {
+    return view('landing');
+})->name('landing');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return redirect()->route('assignments.index');
