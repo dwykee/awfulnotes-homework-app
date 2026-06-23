@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Assignment;
 use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class AssignmentController extends Controller
 {
     public function index()
     {
-        $user = auth()->user();
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
 
         // Ambil semua tim user
         $teams = $user->allTeams()->map(function ($team) {
@@ -19,8 +21,8 @@ class AssignmentController extends Controller
                 'id'          => $team->id,
                 'name'        => $team->name,
                 'invite_code' => $team->invite_code,
-                'is_owner'    => $team->owner_id === auth()->id(),
-                'members'     => $team->members->map(fn($m) => [
+                'is_owner'    => $team->owner_id === Auth::id(),
+                'members'     => $team->members->map(fn ($m) => [
                     'id'   => $m->id,
                     'name' => $m->name,
                 ]),
@@ -32,16 +34,17 @@ class AssignmentController extends Controller
 
         $assignments = Assignment::where(function ($q) use ($user, $teamIds) {
             $q->where('user_id', $user->id)
-              ->whereNull('team_id');
-        })->orWhereIn('team_id', $teamIds)
-          ->with('user:id,name')
-          ->orderBy('deadline', 'asc')
-          ->get()
-          ->map(function ($a) {
-              return array_merge($a->toArray(), [
-                  'created_by' => $a->user->name ?? '-',
-              ]);
-          });
+                ->whereNull('team_id');
+        })
+            ->orWhereIn('team_id', $teamIds)
+            ->with('user:id,name')
+            ->orderBy('deadline', 'asc')
+            ->get()
+            ->map(function ($a) {
+                return array_merge($a->toArray(), [
+                    'created_by' => $a->user->name ?? '-',
+                ]);
+            });
 
         return Inertia::render('Assignments/Index', [
             'assignments' => $assignments,
@@ -53,19 +56,28 @@ class AssignmentController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'title'    => 'required|string',
-            'subject'  => 'required|string',
-            'lecturer' => 'nullable|string',
-            'status'   => 'required|string',
-            'priority' => 'required|string',
-            'type'     => 'nullable|string',
-            'deadline' => 'nullable|date',
-            'notes'    => 'nullable|string',
-            'team_id'  => 'nullable|integer|exists:teams,id',
+            'title'      => 'required|string',
+            'subject'    => 'required|string',
+            'lecturer'   => 'nullable|string',
+            'status'     => 'required|string',
+            'priority'   => 'required|string',
+            'type'       => 'nullable|string',
+            'deadline'   => 'nullable|date',
+            'notes'      => 'nullable|string',
+            'team_id'    => 'nullable|integer|exists:teams,id',
+            'attachment' => 'nullable|image|max:10000', // Maks 10MB
         ]);
 
-        $data['user_id'] = auth()->id();
+        if ($request->hasFile('attachment')) {
+            $data['attachment'] = $request->file('attachment')->store('assignments', 'public');
+        } else {
+            unset($data['attachment']);
+        }
+
+        $data['user_id'] = Auth::id();
+
         Assignment::create($data);
+
         return redirect()->back();
     }
 
@@ -84,12 +96,14 @@ class AssignmentController extends Controller
         ]);
 
         $assignment->update($data);
+
         return redirect()->back();
     }
 
     public function destroy(Assignment $assignment)
     {
         $assignment->delete();
+
         return redirect()->back();
     }
 }

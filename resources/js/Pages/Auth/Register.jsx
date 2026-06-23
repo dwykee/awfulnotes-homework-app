@@ -58,9 +58,9 @@ export default function Register() {
                         {/* Logo */}
                         <div className="flex items-center gap-3 mb-12">
                             <img
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjQMO4UN8Nm50p4pSIvARHvavUZJwOXYrpAlChOtWsPiSg6Xv-7c1aQTPHy77UE1Eid0_Tur4Y9p7jrKCRa1_j3RQj3SsQbegntoNg69tOUjR-v6MfgPQLn0R42LLcNiZnw4A3No2Ag5uTrw7gR5e2ISAQNCx5k_xphJd2gjn1gjfRNDCQWVhIcYwS1kAeDpLlMKPWNZMK9E82qffOrwnnvDdeCgj4ZW2Pmls1sDHTgxaqT_SCs-cAVQ2l2zBwdtsi09VdvTcHd_k"
+                                src="images/logoA.svg"
                                 alt="awfulnotes logo"
-                                style={{ width: 48, height: 48, borderRadius: "50%", objectFit: "contain", background: "#fff", padding: 4 }}
+                                style={{ width: 48, height: 48, borderRadius: "50%", objectFit: "contain", padding: 4 }}
                             />
                             <div>
                                 <h1 style={{ fontFamily: "Hanken Grotesk, sans-serif", fontSize: 24, fontWeight: 600, color: "#a30000", margin: 0 }}>awfulnotes</h1>

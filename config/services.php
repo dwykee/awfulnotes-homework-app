@@ -35,4 +35,16 @@ return [
         ],
     ],
 
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => env('GOOGLE_REDIRECT_URI'),
+    ],
+
+    'nvidia' => [
+    'api_key' => env('NVIDIA_API_KEY'),
+    'api_url' => env('NVIDIA_API_URL', 'https://integrate.api.nvidia.com/v1/chat/completions'),
+    'model' => env('NVIDIA_MODEL', 'deepseek-ai/deepseek-v4-flash'),
+    ],
+
 ];

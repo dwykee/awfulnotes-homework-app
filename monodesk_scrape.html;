@@ -1,0 +1,322 @@
+<!DOCTYPE html><html lang="en"> <head><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PJL423T7');</script><script>(function(){const section = "marketing";
+const trackNotFoundView = false;
+
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.async = true;
+      script.src = "https://cdn.amplitude.com/libs/analytics-browser-2.11.1-min.js.gz";
+      script.onload = function () {
+        amplitude.init("46fcb9217dc7c18cfef403bf172e2b6f", {
+          defaultTracking: true,
+          serverUrl: "https://api.monodesk.com/api/amp/i",
+          cookieOptions: { domain: ".monodesk.com" },
+        });
+        amplitude.identify(
+          new amplitude.Identify()
+            .set("platform", "marketing-site")
+            .set("section", section),
+        );
+        if (trackNotFoundView) {
+          amplitude.track("Marketing 404 Page Viewed", {
+            page_path: window.location.pathname,
+            page_url: window.location.href,
+            page_title: document.title,
+            referrer: document.referrer || null,
+            section: section,
+            status_code: 404,
+          });
+        }
+      };
+      var firstScript = document.getElementsByTagName("script")[0];
+      firstScript.parentNode.insertBefore(script, firstScript);
+    })();
+  })();</script><script>
+    !function(){var i="analytics",analytics=window[i]=window[i]||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var key=analytics.methods[e];analytics[key]=analytics.factory(key)}analytics.load=function(key,e){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.setAttribute("data-global-customerio-analytics-key",i);t.src="https://cdp.customer.io/v1/analytics-js/snippet/"+key+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);analytics._writeKey=key;analytics._loadOptions=e};analytics.SNIPPET_VERSION="4.15.3";
+    analytics.load("0e7b0bb800b77a187bc9");
+    analytics.page();
+    }}();
+  </script><script>
+    (function () {
+      document.addEventListener('click', function (e) {
+        var anchor = e.target && e.target.closest && e.target.closest('a[href*="app.monodesk.com"]');
+        if (!anchor) return;
+
+        var href = anchor.getAttribute('href') || '';
+        var label = (anchor.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 80);
+        var action =
+          href.indexOf('/create') !== -1 ? 'create_account' :
+          href.indexOf('/login') !== -1 ? 'log_in' :
+          'other';
+
+        var props = {
+          destination: href,
+          cta_label: label,
+          cta_action: action,
+          page_path: window.location.pathname,
+          page_url: window.location.href,
+        };
+
+        if (window.amplitude && typeof window.amplitude.track === 'function') {
+          window.amplitude.track('Marketing CTA Clicked', props);
+        }
+        if (window.analytics && typeof window.analytics.track === 'function') {
+          window.analytics.track('Marketing CTA Clicked', props);
+        }
+      }, true);
+    })();
+  </script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="referrer" content="no-referrer-when-downgrade"><title>MonoDesk: All-in-One Workspace for Freelance Creatives — MonoDesk</title><meta name="description" content="Turn proposals into a ready-to-go project workspace. Clients, tasks, files, and AI in one calm place. Built for creative pros. Free in public beta."><link rel="canonical" href="https://www.monodesk.com/"><meta property="og:type" content="website"><meta property="og:title" content="MonoDesk: All-in-One Workspace for Freelance Creatives — MonoDesk"><meta property="og:description" content="Turn proposals into a ready-to-go project workspace. Clients, tasks, files, and AI in one calm place. Built for creative pros. Free in public beta."><meta property="og:url" content="https://www.monodesk.com/"><meta property="og:image" content="https://www.monodesk.com/assets/og/home.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="MonoDesk: All-in-One Workspace for Freelance Creatives — MonoDesk"><meta name="twitter:description" content="Turn proposals into a ready-to-go project workspace. Clients, tasks, files, and AI in one calm place. Built for creative pros. Free in public beta."><meta name="twitter:image" content="https://www.monodesk.com/assets/og/home.png"><link rel="icon" type="image/x-icon" href="https://www.monodesk.com/assets/favicon.ico"><link rel="icon" type="image/png" href="https://www.monodesk.com/assets/favicon.png"><link rel="apple-touch-icon" href="https://www.monodesk.com/assets/logo192.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"MonoDesk","url":"https://www.monodesk.com","logo":"https://www.monodesk.com/assets/logo192.png","description":"One workspace built specifically for freelance creative professionals who run the whole project.","contactPoint":{"@type":"ContactPoint","email":"support@monodesk.com","contactType":"customer support"},"sameAs":["https://x.com/_MonoDesk","https://www.instagram.com/_monodesk","https://www.youtube.com/watch?v=D8lbbL-DY0U"]}</script><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet"><script type="module" src="/_astro/BaseLayout.astro_astro_type_script_index_0_lang.K55MmVdq.js"></script><link rel="stylesheet" href="/styles/public-beta.css"><link rel="alternate" type="text/markdown" href="https://www.monodesk.com/index.md"><link rel="describedby" type="text/plain" href="https://www.monodesk.com/llms.txt"><link rel="stylesheet" href="/_astro/BaseLayout.Bef-9HsV.css"></head> <body> <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PJL423T7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> <div class="menu" id="main-menu"> <div class="logo"> <a href="/"> <img src="/assets/logo-lockup-white.svg" alt="MonoDesk" height="40"> </a> </div> <nav class="header-nav"> <div class="header-nav-dropdown"> <a href="/for-creative-pros" class="header-nav-link">Creative Pros <i data-lucide="chevron-down" style="width:14px;height:14px;"></i></a> <div class="header-nav-dropdown-menu mega-menu"> <div class="mega-menu-col"> <span class="mega-menu-heading">What you do</span> <a href="/for-creative-pros/graphic-designers">Graphic Designers</a> <a href="/for-creative-pros/website-creators">Website Creators</a> <a href="/for-creative-pros/video-creators">Video Creators</a> </div> <div class="mega-menu-col"> <span class="mega-menu-heading">How you work</span> <a href="/for-creative-pros/freelancers">Solo Freelancers</a> <a href="/for-creative-pros/small-teams">Small Teams</a> </div> </div> </div> <div class="header-nav-dropdown"> <a href="/features" class="header-nav-link">Features <i data-lucide="chevron-down" style="width:14px;height:14px;"></i></a> <div class="header-nav-dropdown-menu mega-menu"> <div class="mega-menu-col"> <span class="mega-menu-heading">Live now</span> <a href="/features/proposals" class="mega-menu-new">Proposals</a> <a href="/features/client-portal" class="mega-menu-new">Client Portal</a> <a href="/features/clients">Clients &amp; Projects</a> <a href="/features/planner">Planner</a> <a href="/features/agent">Agent</a> <a href="/features/teams">Teams</a> </div> <div class="mega-menu-col"> <span class="mega-menu-heading">Launching soon</span> <span class="mega-menu-soon">Discover</span> </div> </div> </div> <a href="/pricing" class="header-nav-link">Pricing</a> <a href="/about-us" class="header-nav-link">About Us</a> <a href="/blog" class="header-nav-link">Blog</a> </nav> <div class="header-actions"> <a href="https://app.monodesk.com/login" class="header-login-link">Log in</a> <a href="https://app.monodesk.com/create"> <span class="hero-cta-button header-cta">Get started free <i data-lucide="arrow-right"></i></span> </a> </div> <button class="hamburger-btn" aria-label="Toggle menu" aria-expanded="false" onclick="const n=document.querySelector('.mobile-nav'); const o=n.classList.toggle('is-open'); document.body.classList.toggle('mobile-nav-open', o); this.setAttribute('aria-expanded', o);"> <svg class="hamburger-icon--open" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg> <svg class="hamburger-icon--close" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> </button> </div> <nav class="mobile-nav"> <div class="mobile-nav-header"> <img src="/assets/logo-lockup-white.svg" alt="MonoDesk" class="mobile-nav-logo"> <button class="mobile-nav-close" aria-label="Close menu" onclick="document.querySelector('.mobile-nav').classList.remove('is-open'); document.body.classList.remove('mobile-nav-open');"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> </button> </div> <div class="mobile-nav-content"> <a href="/for-creative-pros" class="mobile-nav-parent">Creative Pros</a> <div class="mobile-nav-sub"> <span class="mobile-nav-sub-heading">What you do</span> <a href="/for-creative-pros/graphic-designers">Graphic Designers</a> <a href="/for-creative-pros/website-creators">Website Creators</a> <a href="/for-creative-pros/video-creators">Video Creators</a> <span class="mobile-nav-sub-heading">How you work</span> <a href="/for-creative-pros/freelancers">Solo Freelancers</a> <a href="/for-creative-pros/small-teams">Small Teams</a> </div> <a href="/features" class="mobile-nav-parent">Features</a> <div class="mobile-nav-sub"> <span class="mobile-nav-sub-heading">Live now</span> <a href="/features/proposals" class="mobile-nav-new">Proposals</a> <a href="/features/client-portal" class="mobile-nav-new">Client Portal</a> <a href="/features/clients">Clients &amp; Projects</a> <a href="/features/planner">Planner</a> <a href="/features/agent">Agent</a> <a href="/features/teams">Teams</a> <span class="mobile-nav-sub-heading">Launching soon</span> <span class="mobile-nav-soon">Discover</span> </div> <a href="/pricing">Pricing</a> <a href="/about-us">About Us</a> <a href="/blog">Blog</a> </div> <div class="mobile-nav-cta"> <a href="https://app.monodesk.com/create"><span class="hero-cta-button">Get started free <i data-lucide="arrow-right"></i></span></a> <a href="https://app.monodesk.com/login" class="header-login-link">Log in</a> </div> <div class="mobile-nav-footer"> <div class="mobile-nav-social"> <a href="https://x.com/_MonoDesk" target="_blank" rel="noopener" aria-label="X (Twitter)"> <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"></path></svg> </a> <a href="https://www.instagram.com/_monodesk" target="_blank" rel="noopener" aria-label="Instagram"> <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg> </a> <a href="https://www.youtube.com/watch?v=D8lbbL-DY0U" target="_blank" rel="noopener" aria-label="YouTube"> <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg> </a> </div> </div> </nav> <div id="smooth-wrapper"> <div id="smooth-content"> <main class="page-content">      <section class="section-hero"> <div class="hero-content"> <div class="hero-text"> <span class="pill-tag hero-anim">For creative pros</span> <h1 class="hero-title"> <span class="hero-word"><span>Less admin.<br>More creative flow.</span></span> </h1> <p class="hero-subtitle hero-anim">
+One workspace built for creative professionals.
+</p> <div class="hero-cta-row hero-anim"> <a href="https://app.monodesk.com/create"><span class="hero-cta-button">Get started free <i data-lucide="arrow-right"></i></span></a> <a href="https://app.monodesk.com/login"><span class="hero-cta-button hero-cta-secondary">Log in <i data-lucide="arrow-right"></i></span></a> </div> <p class="hero-fineprint hero-anim"> <span>Try for free during beta, no credit card required, zero
+                  commitment</span> </p> </div> </div> <img src="/assets/m-outline.svg" alt="" class="hero-m-outline" aria-hidden="true"> </section>  <div class="section-wave-divider" aria-hidden="true"> <svg id="hero-pain-wave" viewBox="0 0 1440 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"> <path id="wave-path" d="M0,0 Q720,0 1440,0 L1440,100 L0,100 Z" fill="#dadee1"></path> </svg> </div>  <section class="section-pain"> <div class="pain-container"> <div class="pain-bubbles" style="
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: auto;
+                min-height: 400px;
+                margin-top: 80px;
+              "> <img src="/assets/Intro-image.svg" alt="Pain Points Bubbles" style="max-width: 100%; height: auto"> </div> <div class="pain-text-block"> <img src="/assets/logo-m.svg" alt="M" style="width: 26px; height: auto"> <h2 class="pain-title">
+We get it. Freelancing isn't<br>just dream portfolio work
+</h2> <p class="pain-subtitle">
+It's briefs in emails, feedback in threads, heavy deadlines, and
+                scope creep. Plus, awkward calls, pricing anxiety, endless
+                revisions, and second-guessing when you're doing it all
+                alone.<br><br>
+MonoDesk replaces the constant context-switching that kills
+                momentum, with one calm workplace.
+</p> <p class="pain-subtitle" style="margin: 8px 0 0; font-size: 16px"> <span style="font-weight: 500">Built for how freelance creative professionals
+<em>actually</em> work.</span> </p> <button class="hero-cta-button video-modal-trigger" onclick="openVideoModal()" style="margin-top: 28px">
+Watch how it works <i data-lucide="play"></i> </button> </div> </div> </section>  <div class="cta-toast"></div>  <div class="stacking-cards-container"> <!-- Card 1: Projects (Black Folder) --> <div class="stacking-card" data-card="1"> <div class="folder-wrapper folder-wrapper-gradient" style="
+                margin: 0 20px;
+                max-width: calc(100vw - 40px);
+                position: relative;
+              "> <!-- Unified black folder shape --> <svg class="folder-shape-bg" viewBox="0 0 1367 819" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M1347.27 818.671C1358.17 818.671 1367 809.839 1367 798.944L1367 125.99C1367 115.094 1358.17 106.262 1347.27 106.262L367.077 106.262C361.101 106.262 355.447 103.553 351.702 98.8955L278.11 7.36607C274.366 2.70872 268.712 -0.000169299 262.736 -0.00016822L19.7279 -0.00012435C8.83249 -0.000122383 3.53992e-05 8.83234 3.49229e-05 19.7277L8.62331e-07 798.943C3.86078e-07 809.839 8.83246 818.671 19.7279 818.671L1347.27 818.671Z" fill="#1c64f5"></path> </svg> <!-- Header --> <header class="header-container"> <div class="header-content"> <div class="folder-tab"> <img src="/assets/folder-tab-vector-black.svg" alt="" class="folder-tab-shape" style="visibility: hidden"> </div> <div class="header-nav-links"></div> <div class="brevo-form-wrapper"></div> </div> </header> <!-- Hero Section --> <section class="hero-section" style="
+                  background: transparent;
+                  background-image: none;
+                  border-radius: 0;
+                "> <div class="hero-content"> <div class="hero-text-container"> <h1 class="hero-title">Projects</h1> <h4 class="hero-h4">
+Stay organised with simple task lists.
+</h4> <div class="brevo-form-wrapper"></div> <p class="hero-subtext">
+Keep your projects, clients, and timelines connected with
+                      easy to scan project boards.
+</p> </div> <div class="hero-video-wrap"> <video alt="Projects" loading="lazy" autoplay loop muted playsinline class="hero-video" style="position: relative; z-index: 1"> <source src="/assets/animations/projects-centered.mp4" type="video/mp4"> <source src="/assets/animations/_Kanban.webm" type="video/webm"> </video> </div> </div> </section> </div> </div> <div class="card-reading-spacer"></div> <!-- Card 2: Planner (Orange Folder) --> <div class="stacking-card" data-card="2"> <div class="folder-wrapper folder-wrapper-gradient" style="
+                margin: 0 20px;
+                max-width: calc(100vw - 40px);
+                position: relative;
+              "> <!-- Unified orange folder shape --> <svg class="folder-shape-bg" viewBox="0 0 1367 819" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M1347.27 818.671C1358.17 818.671 1367 809.839 1367 798.944L1367 125.99C1367 115.094 1358.17 106.262 1347.27 106.262L367.077 106.262C361.101 106.262 355.447 103.553 351.702 98.8955L278.11 7.36607C274.366 2.70872 268.712 -0.000169299 262.736 -0.00016822L19.7279 -0.00012435C8.83249 -0.000122383 3.53992e-05 8.83234 3.49229e-05 19.7277L8.62331e-07 798.943C3.86078e-07 809.839 8.83246 818.671 19.7279 818.671L1347.27 818.671Z" fill="#FF5B26"></path> </svg> <!-- Header --> <header class="header-container"> <div class="header-content"> <div class="folder-tab"> <img src="/assets/folder-tab-vector-orange.svg" alt="" class="folder-tab-shape" style="visibility: hidden"> </div> <div class="header-nav-links"></div> <div class="brevo-form-wrapper"></div> </div> </header> <!-- Hero Section --> <section class="hero-section hero-section-with-postits" style="
+                  background: transparent;
+                  background-image: none;
+                  border-radius: 0;
+                "> <div class="hero-content"> <div class="hero-text-container"> <h1 class="hero-title">Planner</h1> <h4 class="hero-h4">
+A weekly plan you can actually trust.
+</h4> <div class="brevo-form-wrapper"></div> <p class="hero-subtext">
+See what's due next, what's in progress, and what's
+                      complete. Start your day with clarity, not tab chaos.
+</p> </div> <div class="hero-video-wrap"> <img src="/assets/planner-text.svg" alt="" style="
+                        position: absolute;
+                        left: calc(40% - 80px);
+                        top: 60%;
+                        transform: translate(-50%, -50%);
+                        width: 124%;
+                        height: 108%;
+                        object-fit: contain;
+                        object-position: center center;
+                        max-width: none;
+                        z-index: -1;
+                        pointer-events: none;
+                        opacity: 0.8;
+                      "> <video alt="Planner" loading="lazy" autoplay loop muted playsinline style="position: relative; z-index: 1" class="hero-video"> <source src="/assets/animations/planner-centered.mp4" type="video/mp4"> <source src="/assets/animations/_Planner.webm" type="video/webm"> </video> <div class="hero-postits-container"> <img src="/assets/post-it-01.svg" alt="Post It Note 1" class="hero-postit-1"> <img src="/assets/post-it-02.svg" alt="Post It Note 2" class="hero-postit-2"> <img src="/assets/post-it-03.svg" alt="Post It Note 3" class="hero-postit-3"> </div> </div> </div> </section> </div> </div> <div class="card-reading-spacer"></div> <!-- Card 3: AI Agent (Green Folder) --> <div class="stacking-card" data-card="3"> <div class="folder-wrapper folder-wrapper-gradient" style="
+                margin: 0 20px;
+                max-width: calc(100vw - 40px);
+                position: relative;
+              "> <!-- Unified gradient folder shape --> <svg class="folder-shape-bg" viewBox="0 0 1367 819" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M1347.27 818.671C1358.17 818.671 1367 809.839 1367 798.944L1367 125.99C1367 115.094 1358.17 106.262 1347.27 106.262L367.077 106.262C361.101 106.262 355.447 103.553 351.702 98.8955L278.11 7.36607C274.366 2.70872 268.712 -0.000169299 262.736 -0.00016822L19.7279 -0.00012435C8.83249 -0.000122383 3.53992e-05 8.83234 3.49229e-05 19.7277L8.62331e-07 798.943C3.86078e-07 809.839 8.83246 818.671 19.7279 818.671L1347.27 818.671Z" fill="url(#gradient-ai-folder)"></path> <defs> <linearGradient id="gradient-ai-folder" x1="1367" y1="0" x2="645.277" y2="1205.12" gradientUnits="userSpaceOnUse"> <stop stop-color="#C0FF01"></stop> <stop offset="1" stop-color="#1C64F5"></stop> </linearGradient> </defs> </svg> <!-- Tab spacer (invisible, preserves layout height) --> <header class="header-container"> <div class="header-content"> <div class="folder-tab"> <img src="/assets/folder-tab-vector-green.svg" alt="" class="folder-tab-shape" style="visibility: hidden"> </div> <div class="header-nav-links"></div> <div class="brevo-form-wrapper"></div> </div> </header> <!-- Hero Section --> <section class="hero-section hero-section-ai-detail" style="
+                  background: transparent;
+                  background-image: none;
+                  border-radius: 0;
+                "> <div class="hero-content"> <div class="hero-text-container"> <h1 class="hero-title">AI Agent</h1> <h4 class="hero-h4">
+Your admin sidekick for creative flow.
+</h4> <div class="brevo-form-wrapper"></div> <p class="hero-subtext">
+Summarise briefs, draft client updates, and review your
+                      work with project-aware feedback, so deliverables are
+                      polished before you hit send.
+</p> </div> <div class="hero-video-wrap"> <video alt="AI Agent" loading="lazy" autoplay loop muted playsinline class="hero-video"> <source src="/assets/animations/agent-centered.mp4" type="video/mp4"> <source src="/assets/animations/_Agent.webm" type="video/webm"> </video> </div> </div> </section> </div> </div> <div class="card-reading-spacer"></div> <div class="stacking-spacer"></div> </div>   <section class="timeline-section"> <div class="timeline-header-wrapper"> <h2 class="section-title">How MonoDesk works</h2> </div> <div class="timeline-container"> <!-- Image Container --> <div class="timeline-media"> <div class="timeline-image-wrapper"> <img src="/assets/animations/Agent_02.webp" alt="Set up in minutes" class="timeline-preview-img active" data-step="1"> <img src="/assets/animations/Planner_02.webp" alt="See your week in the Planner" class="timeline-preview-img" data-step="2"> <img src="/assets/animations/Agent_05.webp" alt="Let the AI Agent handle the admin" class="timeline-preview-img" data-step="3"> <img src="/assets/Teams-marketing.png" alt="Create Teams" class="timeline-preview-img" data-step="4"> </div> <div class="timeline-dots"> <button class="timeline-dot active" data-step="1" aria-label="View step 1"></button> <button class="timeline-dot" data-step="2" aria-label="View step 2"></button> <button class="timeline-dot" data-step="3" aria-label="View step 3"></button> <button class="timeline-dot" data-step="4" aria-label="View step 4"></button> </div> </div> <!-- Right panel: hover display (desktop) + step cards (mobile) --> <div class="timeline-content"> <!-- Desktop: large text display area --> <div class="timeline-display"> <h3 class="timeline-display-title">Set up in minutes</h3> <p class="timeline-display-desc">
+Upload a proposal and MonoDesk creates your client, project
+                  and task list instantly.
+</p> </div> <!-- Desktop: step hover selectors --> <div class="timeline-selectors"> <button class="timeline-selector active" data-step="1" data-title="Set up in minutes" data-desc="Upload a proposal and MonoDesk creates your client, project and task list instantly."> <div class="timeline-selector-num"><span>1</span></div> <span class="timeline-selector-label">Set up in minutes</span> </button> <button class="timeline-selector" data-step="2" data-title="See your week in the Planner" data-desc="Add deadlines, important dates and deliverables to see what's due, what's blocked, and what matters this week."> <div class="timeline-selector-num"><span>2</span></div> <span class="timeline-selector-label">See your week in the Planner</span> </button> <button class="timeline-selector" data-step="3" data-title="Let the AI Agent handle the admin" data-desc="Ask the agent to turn notes into tasks, draft client updates or review your work."> <div class="timeline-selector-num"><span>3</span></div> <span class="timeline-selector-label">Let the AI Agent handle the admin</span> </button> <button class="timeline-selector" data-step="4" data-title="Create Teams" data-desc="Create multiple teams and invite Members to collaborate across your Clients and Projects."> <div class="timeline-selector-num"><span>4</span></div> <span class="timeline-selector-label">Create Teams</span> </button> </div> <!-- Mobile: step cards --> <div class="timeline-steps"> <div class="timeline-step active" data-step="1"> <img src="/assets/animations/Agent_02.webp" alt="Set up in minutes" class="timeline-step-img"> <div class="timeline-number"> <span>1</span> <div class="timeline-line"></div> </div> <div class="timeline-text"> <h3 class="timeline-step-title">Set up in minutes</h3> <p class="timeline-step-desc">
+Upload a proposal and MonoDesk creates your client,
+                      project and task list instantly.
+</p> </div> </div> <div class="timeline-step" data-step="2"> <img src="/assets/animations/Planner_02.webp" alt="See your week in the Planner" class="timeline-step-img"> <div class="timeline-number"> <span>2</span> <div class="timeline-line"></div> </div> <div class="timeline-text"> <h3 class="timeline-step-title" style="font-weight: 400">
+See your week in the Planner
+</h3> <p class="timeline-step-desc">
+Add deadlines, important dates and deliverables to see
+                      what's due, what's blocked, and what matters this week.
+</p> </div> </div> <div class="timeline-step" data-step="3"> <img src="/assets/animations/Agent_05.webp" alt="Let the AI Agent handle the admin" class="timeline-step-img"> <div class="timeline-number"> <span>3</span> <div class="timeline-line"></div> </div> <div class="timeline-text"> <h3 class="timeline-step-title">
+Let the AI Agent handle the admin
+</h3> <p class="timeline-step-desc">
+Ask the agent to turn notes into tasks, draft client
+                      updates or review your work.
+</p> </div> </div> <div class="timeline-step" data-step="4"> <img src="/assets/Teams-marketing.png" alt="Create Teams" class="timeline-step-img"> <div class="timeline-number"> <span>4</span> </div> <div class="timeline-text"> <h3 class="timeline-step-title">Create Teams</h3> <p class="timeline-step-desc">
+Create multiple teams and invite Members to collaborate
+                      across your Clients and Projects.
+</p> </div> </div> </div> </div> </div> </section>  <section class="faq-section"> <div class="faq-container"> <div class="faq-content"> <h2 class="faq-title">Frequently Asked Questions</h2> <div class="faq-item"> <button class="faq-question"> <span>What is MonoDesk?</span> <i data-lucide="chevron-down" class="faq-icon"></i> </button> <div class="faq-answer"> <p>
+MonoDesk is a calm workspace designed specifically for
+                    freelance creative professionals who run entire projects
+                    solo. It combines project management, client communication,
+                    task planning, and AI assistance in one workplace,
+                    eliminating the constant context-switching that kills
+                    creative momentum.
+</p> </div> </div> <div class="faq-divider"></div> <div class="faq-item"> <button class="faq-question"> <span>Who is MonoDesk built for?</span> <i data-lucide="chevron-down" class="faq-icon"></i> </button> <div class="faq-answer"> <p>
+MonoDesk is built specifically for freelance creative
+                    professionals who manage the entire project lifecycle, from
+                    brief to delivery. If you're juggling client communication,
+                    creative work, and project admin all by yourself, MonoDesk
+                    is for you.
+</p> </div> </div> <div class="faq-divider"></div> <div class="faq-item"> <button class="faq-question"> <span>How is MonoDesk different from other project management
+                    tools?</span> <i data-lucide="chevron-down" class="faq-icon"></i> </button> <div class="faq-answer"> <p>
+Unlike generic project management tools built for teams,
+                    MonoDesk is designed for solo creatives. It focuses on
+                    reducing context-switching, with AI assistance for admin
+                    tasks, and a workflow that matches how freelancers actually
+                    work, not how corporate teams operate.
+</p> </div> </div> <div class="faq-divider"></div> <div class="faq-item"> <button class="faq-question"> <span>How do I provide feedback to shape MonoDesk?</span> <i data-lucide="chevron-down" class="faq-icon"></i> </button> <div class="faq-answer"> <p>
+We'd love your input! Share your feedback, feature requests,
+                    or ideas by using the Feedback modal on the right-hand side
+                    of MonoDesk, or by emailing us at
+<a href="mailto:support@monodesk.com">support@monodesk.com</a>.
+</p> </div> </div> <div class="faq-divider"></div> <div class="faq-item"> <div class="faq-answer"> <p>
+Early access is completely free and includes unlimited
+                    projects, client management, weekly planner, AI assistant,
+                    and all core features. You'll also get priority access to
+                    new features as we build them.
+</p> </div> </div> <div class="faq-divider"></div> <div class="faq-item"> <div class="faq-answer"> <p>
+No credit card required. Early access is completely free
+                    with zero commitment. Just register with your email and
+                    you're in.
+</p> </div> </div> <div class="faq-divider"></div> <div class="faq-item"> <div class="faq-answer"> <p>
+Early access users will get special lifetime pricing as a
+                    thank you for being early supporters. We'll announce pricing
+                    details well in advance, and you'll never be forced into a
+                    paid plan without your consent.
+</p> </div> </div> </div> </div> </section>  <section class="pricing-section"> <div class="pricing-container"> <!-- Price Badge --> <!-- Price Card --> <div class="price-card"> <div class="price-left"> <h3 class="price-headline">
+Included in your<br class="mobile-break">
+calm workspace:
+</h3> <p class="price-subtext">Try MonoDesk for free while in Beta</p> <div class="price-features-grid"> <div class="price-feature"> <i data-lucide="check-circle"></i> <span>Unlimited projects</span> </div> <div class="price-feature"> <i data-lucide="check-circle"></i> <span>Project board</span> </div> <div class="price-feature"> <i data-lucide="check-circle"></i> <span>Weekly planner</span> </div> <div class="price-feature"> <i data-lucide="check-circle"></i> <span>Client management</span> </div> <div class="price-feature"> <i data-lucide="check-circle"></i> <span>AI admin assistant</span> </div> <div class="price-feature"> <i data-lucide="check-circle"></i> <span>Good times</span> </div> </div> </div> </div> </div> </section>  <section class="final-cta"> <canvas id="cta-confetti-back"></canvas> <canvas id="cta-confetti-front"></canvas> <div class="final-cta-container"> <div class="cta-text"> <img src="/assets/logomark-white.svg" alt="MonoDesk" class="about-icon-img"> <h2 class="cta-title">You made it this far.</h2> <p class="cta-subtitle">
+Might as well see what all the fuss is about.
+</p> </div> <a href="https://app.monodesk.com/create"><span class="hero-cta-button">Get started free <i data-lucide="arrow-right"></i></span></a> </div> </section>  </main> <footer class="site-footer"> <div class="site-footer-inner"> <div class="footer-links"> <a href="https://www.envato.com/privacy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a> <a href="/terms">Terms</a> </div> <div class="footer-social"> <a href="https://x.com/_MonoDesk" target="_blank" rel="noopener" aria-label="X (Twitter)"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"> <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path> </svg> </a> <a href="https://www.instagram.com/_monodesk" target="_blank" rel="noopener" aria-label="Instagram"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"> <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"></path> </svg> </a> <a href="https://www.youtube.com/watch?v=D8lbbL-DY0U" target="_blank" rel="noopener" aria-label="YouTube"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"> <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path> </svg> </a> </div> <p class="footer-copy">&copy; 2026 MonoDesk. All rights reserved.</p> </div> </footer> </div> </div> <div id="google-one-tap-prompt" class="google-one-tap-prompt" data-astro-cid-2nmvij6k></div>  <script>(function(){const GOOGLE_CLIENT_ID = "317089747511-r4as42nic4g9j4dph0fkflvmrr5dv05o.apps.googleusercontent.com";
+const APP_URL = "https://app.monodesk.com";
+
+  function bytesToBase64(bytes) {
+    var binary = '';
+    bytes.forEach(function (byte) {
+      binary += String.fromCharCode(byte);
+    });
+    return btoa(binary);
+  }
+
+  function bufferToHex(buffer) {
+    return Array.from(new Uint8Array(buffer))
+      .map(function (byte) {
+        return byte.toString(16).padStart(2, '0');
+      })
+      .join('');
+  }
+
+  async function generateNoncePair() {
+    if (!window.crypto?.getRandomValues || !window.crypto?.subtle) {
+      throw new Error('Browser crypto APIs are required for Google One Tap.');
+    }
+
+    var nonce = bytesToBase64(window.crypto.getRandomValues(new Uint8Array(32)));
+    var encodedNonce = new TextEncoder().encode(nonce);
+    var hashBuffer = await window.crypto.subtle.digest('SHA-256', encodedNonce);
+
+    return {
+      nonce: nonce,
+      hashedNonce: bufferToHex(hashBuffer),
+    };
+  }
+
+  async function initOneTap() {
+    var noncePair;
+
+    try {
+      noncePair = await generateNoncePair();
+    } catch (error) {
+      console.error('[Google One Tap] Failed to initialize nonce:', error);
+      return;
+    }
+
+    window.google.accounts.id.initialize({
+      client_id: GOOGLE_CLIENT_ID,
+      callback: (response) => {
+        var destination = `${APP_URL}/auth/google-onetap#${new URLSearchParams({
+          credential: response.credential,
+          nonce: noncePair.nonce,
+        }).toString()}`;
+
+        var clickProps = {
+          page_path: window.location.pathname,
+          page_url: window.location.href,
+          destination: destination,
+        };
+        if (window.amplitude && typeof window.amplitude.track === 'function') {
+          window.amplitude.track('Google One Tap Clicked', clickProps);
+        }
+        if (window.analytics && typeof window.analytics.track === 'function') {
+          window.analytics.track('Google One Tap Clicked', clickProps);
+        }
+
+        window.location.href = destination;
+      },
+      context: 'signin',
+      nonce: noncePair.hashedNonce,
+      itp_support: true,
+      prompt_parent_id: 'google-one-tap-prompt',
+      use_fedcm_for_prompt: true,
+    });
+
+    setTimeout(() => {
+      var promptedProps = {
+        page_path: window.location.pathname,
+        page_url: window.location.href,
+        delay_ms: 3000,
+      };
+      if (window.amplitude && typeof window.amplitude.track === 'function') {
+        window.amplitude.track('Google One Tap Prompted', promptedProps);
+      }
+      if (window.analytics && typeof window.analytics.track === 'function') {
+        window.analytics.track('Google One Tap Prompted', promptedProps);
+      }
+
+      window.google.accounts.id.prompt(function (notification) {
+        if (notification.isDismissedMoment()) {
+          var dismissedProps = {
+            page_path: window.location.pathname,
+            reason: notification.getDismissedReason(),
+          };
+          if (window.amplitude && typeof window.amplitude.track === 'function') {
+            window.amplitude.track('Google One Tap Dismissed', dismissedProps);
+          }
+          if (window.analytics && typeof window.analytics.track === 'function') {
+            window.analytics.track('Google One Tap Dismissed', dismissedProps);
+          }
+        }
+      });
+    }, 3000);
+  }
+
+  if (!GOOGLE_CLIENT_ID) {
+    console.warn('[Google One Tap] PUBLIC_GOOGLE_CLIENT_ID is not configured.');
+  } else {
+    const script = document.createElement('script');
+    script.src = 'https://accounts.google.com/gsi/client';
+    script.async = true;
+    script.defer = true;
+    script.onload = initOneTap;
+    document.head.appendChild(script);
+  }
+})();</script> </body></html> <script type="module" src="/_astro/index.astro_astro_type_script_index_0_lang.DFdAtgmg.js"></script> <!-- FAQ Accordion Script --> <script type="module" src="/_astro/index.astro_astro_type_script_index_1_lang.BjppP95i.js"></script> <!-- CTA Confetti Animation Script --> <script type="module">(function(){const h=document.getElementById("cta-confetti-back"),e=document.getElementById("cta-confetti-front");if(!h||!e)return;const r=h.getContext("2d"),d=e.getContext("2d"),s=document.querySelector(".final-cta"),c=["#07CFF5","#FEFE02","#FC4B00","#0313F8","#FE078D","#D1FF6E"];let a=[],o=[];const m=10,u=12;function l(){h.width=s.offsetWidth,h.height=s.offsetHeight,e.width=s.offsetWidth,e.height=s.offsetHeight}class f{constructor(t){this.canvas=t,this.reset()}reset(){this.x=Math.random()*this.canvas.width,this.y=Math.random()*this.canvas.height-this.canvas.height,this.width=Math.random()*12+24,this.height=Math.random()*40+70,this.isGradient=Math.random()<.2,this.color=this.isGradient?null:c[Math.floor(Math.random()*c.length)],this.speedY=Math.random()*1+.2,this.speedX=Math.random()*.5-.25,this.rotation=Math.random()*360,this.rotationSpeed=Math.random()*2-1,this.oscillationSpeed=Math.random()*.02+.01,this.oscillationOffset=Math.random()*Math.PI*2}update(){this.y+=this.speedY,this.x+=Math.sin(this.y*this.oscillationSpeed+this.oscillationOffset)*.5+this.speedX,this.rotation+=this.rotationSpeed,this.y>this.canvas.height+20&&(this.reset(),this.y=-20)}draw(t){if(t.save(),t.translate(this.x,this.y),t.rotate(this.rotation*Math.PI/180),this.isGradient){const n=t.createLinearGradient(0,-this.height/2,0,this.height/2);n.addColorStop(0,"#C0FF01"),n.addColorStop(1,"#FF3CFE"),t.fillStyle=n}else t.fillStyle=this.color;t.beginPath(),t.roundRect?t.roundRect(-this.width/2,-this.height/2,this.width,this.height,2):t.rect(-this.width/2,-this.height/2,this.width,this.height),t.fill(),t.restore()}}function M(){l(),a=[],o=[];for(let i=0;i<m;i++){const t=new f(h);t.y=Math.random()*h.height,a.push(t)}for(let i=0;i<u;i++){const t=new f(e);t.y=Math.random()*e.height,o.push(t)}}function g(){r.clearRect(0,0,h.width,h.height),d.clearRect(0,0,e.width,e.height),a.forEach(i=>{i.update(),i.draw(r)}),o.forEach(i=>{i.update(),i.draw(d)}),requestAnimationFrame(g)}window.addEventListener("resize",()=>{l()}),M(),g()})();</script> <script type="module" src="/_astro/index.astro_astro_type_script_index_3_lang.DEbJeG3W.js"></script> <!-- AI Chat Scroll-Reveal Script --> <script type="module">(function(){var e=document.querySelector(".ai-chat-stack");if(e){var n=Array.from(e.querySelectorAll(".ai-chat-item")),r=new IntersectionObserver(function(c){c.forEach(function(t){t.isIntersecting&&(n.forEach(function(o,a){setTimeout(function(){o.classList.add("revealed")},a*400)}),r.unobserve(t.target))})},{threshold:.15});r.observe(e)}})();</script> <!-- Parallax Script --> <script type="module">(function(){const i=document.querySelectorAll(".parallax-block");if(!i.length)return;function a(){i.forEach(function(n){const t=n.querySelector(".parallax-img");if(!t)return;const s=n.getBoundingClientRect(),e=n.offsetHeight,r=t.naturalHeight&&t.naturalWidth>0?t.naturalHeight/t.naturalWidth*n.offsetWidth:e*1.6,o=window.innerHeight,l=(o-s.top)/(o+e),c=Math.min(Math.max(l,0),1),h=Math.max(r-e,0),u=c*h;t.style.transform="translateY(-"+u+"px)",t.style.height=Math.max(r,e*1.5)+"px"})}window.addEventListener("scroll",a,{passive:!0}),window.addEventListener("resize",a),a()})();</script> <script type="module">(function(){var e=document.querySelector(".header-cta");if(!e)return;var r=window.matchMedia("(max-width: 768px)"),i=document.querySelectorAll(".faq-item"),t=i.length?i[i.length-1]:null;function n(){if(!r.matches){e.classList.remove("is-visible");return}var a=window.scrollY>window.innerHeight,s=t&&t.getBoundingClientRect().top<window.innerHeight;a&&!s?e.classList.add("is-visible"):e.classList.remove("is-visible")}window.addEventListener("scroll",n,{passive:!0}),n()})();</script> <script type="module" src="/_astro/index.astro_astro_type_script_index_7_lang.DmJdx_do.js"></script> <!-- GSAP ScrollTrigger + ScrollSmoother Script --> <script type="module" src="/_astro/index.astro_astro_type_script_index_8_lang.DwFF2y70.js"></script> <!-- Mobile Stacking Cards Script (no ScrollSmoother) --> <script type="module" src="/_astro/index.astro_astro_type_script_index_9_lang.UwqQLFoW.js"></script> <!-- Header Scroll Script --> <script type="module">(function(){const s=document.getElementById("main-menu");s&&s.classList.add("is-visible"),window.addEventListener("scroll",()=>{s&&(window.scrollY>50?s.classList.add("is-scrolled"):s.classList.remove("is-scrolled"))},{passive:!0})})();</script> <!-- Video Modal --> <div id="video-modal" class="video-modal-overlay" onclick="closeVideoModal(event)"> <div class="video-modal-content"> <button class="video-modal-close" onclick="closeVideoModal()" aria-label="Close video"> <i data-lucide="x"></i> </button> <div class="video-modal-frame"> <iframe id="video-modal-player" src="" data-src="https://www.youtube.com/embed/D8lbbL-DY0U?autoplay=1&rel=0" title="MonoDesk 101" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe> </div> </div> </div> <!-- Video Modal Logic --> <script type="module">function n(){const e=document.getElementById("video-modal"),o=document.getElementById("video-modal-player");o.src=o.dataset.src,e.classList.add("is-open"),document.body.style.overflow="hidden",typeof amplitude<"u"&&amplitude.track("video_modal_opened")}function d(e){if(e&&e.target!==e.currentTarget&&!e.target.closest(".video-modal-close"))return;const o=document.getElementById("video-modal"),t=document.getElementById("video-modal-player");o.classList.remove("is-open"),t.src="",document.body.style.overflow=""}window.openVideoModal=n;window.closeVideoModal=d;document.addEventListener("keydown",function(e){e.key==="Escape"&&d()});</script> <script type="module">(function(){if(typeof navigator>"u"||!navigator.modelContext)return;const e=navigator.modelContext,t=[{name:"monodesk_create_account",description:"Open the MonoDesk account creation flow in a new browser tab.",inputSchema:{type:"object",properties:{},additionalProperties:!1},execute:async function(){return window.open("https://app.monodesk.com/create","_blank","noopener"),{content:[{type:"text",text:"Opened the MonoDesk create account page in a new tab."}]}}},{name:"monodesk_open_login",description:"Open the MonoDesk login page in a new browser tab.",inputSchema:{type:"object",properties:{},additionalProperties:!1},execute:async function(){return window.open("https://app.monodesk.com/login","_blank","noopener"),{content:[{type:"text",text:"Opened the MonoDesk login page in a new tab."}]}}},{name:"monodesk_open_features",description:"Open the MonoDesk features page in a new browser tab.",inputSchema:{type:"object",properties:{},additionalProperties:!1},execute:async function(){return window.open("https://www.monodesk.com/features","_blank","noopener"),{content:[{type:"text",text:"Opened the MonoDesk features page in a new tab."}]}}},{name:"monodesk_open_demo_video",description:"Open the MonoDesk product demo video modal.",inputSchema:{type:"object",properties:{},additionalProperties:!1},execute:async function(){return typeof window.openVideoModal!="function"?{content:[{type:"text",text:"Demo modal is not available on this page."}]}:(window.openVideoModal(),{content:[{type:"text",text:"Opened the product demo video modal."}]})}}];try{if(typeof e.registerTool=="function"){const o=new AbortController;for(const n of t)e.registerTool(n,{signal:o.signal});window.addEventListener("pagehide",function(){o.abort()},{once:!0});return}typeof e.provideContext=="function"&&e.provideContext({tools:t})}catch(o){console.warn("WebMCP registration failed:",o)}})();</script>

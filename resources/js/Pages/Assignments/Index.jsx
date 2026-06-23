@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
-import { Head, router } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { Head, Link, router, usePage } from "@inertiajs/react";
 
 const STATUS = {
     todo:        { label: "To Do",       color: "#3B82F6", bg: "#EFF6FF", dot: "#3B82F6" },
@@ -45,7 +45,7 @@ function iStyle(extra = {}) {
 function Chatbot() {
     const [open, setOpen] = useState(false);
     const [messages, setMessages] = useState([
-        { role: "ai", text: "Halo! Aku **Babu-Mu** 🤖\nSaat ini layanan Babu-Mu belum tersedia." }
+        { role: "ai", text: "Halo! Aku **Babu-Mu** 🤖, ada yang bisa di bantu?." }
     ]);
     const [input, setInput] = useState("");
     const [loading, setLoading] = useState(false);
@@ -286,7 +286,18 @@ function AssignmentCard({ item, selected, onSelect, teams }) {
                             {item.lecturer && <span style={{ fontSize: 11, color: T.textMute }}>· {item.lecturer}</span>}
                         </div>
                         {item.created_by && item.team_id && <div style={{ fontSize: 10, color: T.textMute, marginTop: 2 }}>by {item.created_by}</div>}
+                        {item.attachment_url && (
+                            <div style={{ marginBottom: 10 }}>
+                                <img
+                                    src={item.attachment_url}
+                                    alt="lampiran"
+                                    style={{ width: "100%", maxHeight: 140, objectFit: "cover", borderRadius: 10, border: `1.5px solid ${T.border}`, cursor: "pointer" }}
+                                    onClick={(e) => { e.stopPropagation(); window.open(item.attachment_url, "_blank"); }}
+                                />
+                            </div>
+                        )}
                     </div>
+                    
                     <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 10 }}>
                         <Badge color={statusInfo.color} bg={statusInfo.bg}><span style={{ width: 5, height: 5, borderRadius: "50%", background: statusInfo.dot, display: "inline-block", marginRight: 4 }} />{statusInfo.label}</Badge>
                         {item.type && <Badge color={typeColor}>{item.type}</Badge>}
@@ -354,13 +365,26 @@ function AssignmentCard({ item, selected, onSelect, teams }) {
 
 // ── ADD MODAL ─────────────────────────────────────────────────
 function AddModal({ onClose, teams }) {
-    const [form, setForm] = useState({ title: "", subject: "", lecturer: "", status: "todo", priority: "medium", type: "", deadline: "", notes: "", team_id: "" });
+    const [form, setForm] = useState({ title: "", subject: "", lecturer: "", status: "todo", priority: "medium", type: "", deadline: "", notes: "", team_id: "", attachment: null });
+    const [preview, setPreview] = useState(null);
     const [loading, setLoading] = useState(false);
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        if (!file.type.startsWith("image/")) { alert("File harus berupa gambar!"); return; }
+        if (file.size > 2 * 1024 * 1024) { alert("Ukuran file maksimal 2MB!"); return; }
+        setForm(p => ({ ...p, attachment: file }));
+        const reader = new FileReader();
+        reader.onload = ev => setPreview(ev.target.result);
+        reader.readAsDataURL(file);
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!form.title.trim() || !form.subject.trim()) return;
         setLoading(true);
-        router.post(route("assignments.store"), form, { onFinish: () => { setLoading(false); onClose(); }, preserveScroll: true });
+        router.post(route("assignments.store"), form, { onFinish: () => { setLoading(false); onClose(); }, preserveScroll: true, forceFormData: true });
     };
     return (
         <div style={{ position: "fixed", inset: 0, background: "rgba(7,89,133,0.35)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 100, backdropFilter: "blur(6px)", padding: "16px" }} onClick={onClose}>
@@ -373,6 +397,29 @@ function AddModal({ onClose, teams }) {
                     </div>
                 </div>
                 <form onSubmit={handleSubmit}>
+                    <div style={{ marginBottom: 16 }}>
+                        <label htmlFor="assignment-attachment" className="attachment-dropzone"
+                            style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 6, width: "100%", height: preview ? 160 : 110, borderRadius: 14, border: `2px dashed ${T.border}`, background: preview ? "transparent" : T.inputBg, cursor: "pointer", overflow: "hidden", position: "relative", transition: "border-color 0.15s" }}>
+                            {preview ? (
+                                <>
+                                    <img src={preview} alt="preview" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                                    <div className="attachment-overlay" style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.45)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 4, opacity: 0, transition: "opacity 0.15s", color: "#fff", fontSize: 12, fontWeight: 700 }}>
+                                        <span style={{ fontSize: 22 }}>📷</span>
+                                        Ganti gambar
+                                    </div>
+                                    <button type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); setPreview(null); setForm(p => ({ ...p, attachment: null })); }}
+                                        style={{ position: "absolute", top: 8, right: 8, width: 26, height: 26, borderRadius: "50%", background: "rgba(0,0,0,0.5)", border: "none", color: "#fff", fontSize: 13, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2 }}>✕</button>
+                                </>
+                            ) : (
+                                <>
+                                    <span style={{ fontSize: 26, color: T.textMute }}>🖼️</span>
+                                    <span style={{ fontSize: 13, fontWeight: 700, color: T.textMid }}>Tambahkan Cover / Lampiran</span>
+                                    <span style={{ fontSize: 11, color: T.textMute }}>PNG, JPG — maks 2MB</span>
+                                </>
+                            )}
+                            <input id="assignment-attachment" type="file" accept="image/*" onChange={handleFileChange} style={{ display: "none" }} />
+                        </label>
+                    </div>
                     {[{ key: "title", label: "Title *", placeholder: "e.g. Science" }, { key: "subject", label: "Subject *", placeholder: "e.g. Management" }, { key: "lecturer", label: "Lecturer", placeholder: "e.g. Prof. Dr. Siti Rahayu" }, { key: "notes", label: "Notes / Instructions", placeholder: "Task details, references..." }].map(({ key, label, placeholder }) => (
                         <div key={key} style={{ marginBottom: 8 }}>
                             <label style={{ fontSize: 11, fontWeight: 700, color: T.textMid, display: "block", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.07em" }}>{label}</label>
@@ -440,8 +487,37 @@ function MobileBottomNav({ filterStatus, setFilterStatus, onAdd, onTeam, list })
     );
 }
 
+// ── PROFILE CARD (sidebar bottom-left, navigates to /profile) ──
+function ProfileCard({ user }) {
+    const initials = (user?.name || "?")
+        .split(" ")
+        .map(n => n[0])
+        .slice(0, 2)
+        .join("")
+        .toUpperCase();
+
+    return (
+        <Link href={route("profile.edit")} className="profile-card-link"
+            style={{ marginTop: "auto",  borderTop: `1px solid ${T.border}`, padding: "14px 16px", display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
+            <div style={{ width: 38, height: 38, borderRadius: "50%", flexShrink: 0, overflow: "hidden", background: T.surfaceAlt, display: "flex", alignItems: "center", justifyContent: "center", border: `1.5px solid ${T.border}` }}>
+                {user?.avatar_url ? (
+                    <img src={user.avatar_url} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                ) : (
+                    <span style={{ fontSize: 13, fontWeight: 800, color: T.primary }}>{initials}</span>
+                )}
+            </div>
+            <div style={{ minWidth: 0, flex: 1 }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: T.text, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{user?.name}</div>
+                <div style={{ fontSize: 10, color: T.textMute, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{user?.email}</div>
+            </div>
+            <span style={{ fontSize: 13, color: T.textMute, flexShrink: 0 }}>›</span>
+        </Link>
+    );
+}
+
 // ── MAIN PAGE ─────────────────────────────────────────────────
 export default function Index({ assignments, teams, flash }) {
+    const { auth } = usePage().props;
     const [selected, setSelected] = useState(null);
     const [filterStatus, setFilterStatus] = useState("all");
     const [filterTeam, setFilterTeam] = useState("all");
@@ -472,6 +548,10 @@ export default function Index({ assignments, teams, flash }) {
                 ::-webkit-scrollbar-track { background: ${T.bg}; }
                 ::-webkit-scrollbar-thumb { background: ${T.borderStr}; border-radius: 3px; }
                 select option { background: #fff; color: ${T.text}; }
+                .profile-avatar:hover .avatar-overlay { opacity: 1; }
+                .profile-card-link:hover { background: ${T.surfaceAlt}; }
+                .attachment-dropzone:hover { border-color: ${T.primary}; }
+                .attachment-dropzone:hover .attachment-overlay { opacity: 1; }
 
                 /* ── RESPONSIVE ── */
                 .sidebar-desktop { display: flex; }
@@ -566,6 +646,7 @@ export default function Index({ assignments, teams, flash }) {
                                 ))}
                             </>
                         )}
+                        <ProfileCard user={auth?.user} />
                     </div>
 
                     {/* MAIN */}
@@ -610,3 +691,4 @@ export default function Index({ assignments, teams, flash }) {
         </AuthenticatedLayout>
     );
 }
+
