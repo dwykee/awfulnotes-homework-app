@@ -105,6 +105,11 @@ function Chatbot() {
             });
             const data = await res.json();
             setMessages(prev => [...prev, { role: "ai", text: data.reply || "Maaf, tidak bisa menjawab." }]);
+
+            // kalau AI BENERAN nambah tugas → refresh daftar assignment
+            if (data.action) {
+                router.reload({ only: ["assignments"] });
+            }
         } catch {
             setMessages(prev => [...prev, { role: "ai", text: "Dibilang belum tersedia, usaha dikit kek!" }]);
         } finally {

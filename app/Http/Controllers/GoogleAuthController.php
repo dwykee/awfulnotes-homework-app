@@ -8,17 +8,16 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class GoogleAuthController extends Controller
+{
+    public function redirect()
     {
-        // Arahkan user ke halaman login Google
-        public function redirect()
-        {
-            return Socialite::driver('google')->redirect();
-        }
+        return Socialite::driver('google')->stateless()->redirect();
+    }
 
-        public function callback()
+    public function callback(Request $request)
     {
         try {
-            $googleUser = Socialite::driver('google')->user();
+            $googleUser = Socialite::driver('google')->stateless()->user();
 
             $user = User::updateOrCreate(
                 ['email' => $googleUser->getEmail()],
@@ -26,16 +25,18 @@ class GoogleAuthController extends Controller
                     'name' => $googleUser->getName(),
                     'google_id' => $googleUser->getId(),
                     'password' => bcrypt(str()->random(24)),
-                    'email_verified_at' => now(), // ← tambahan ini yang penting
+                    'email_verified_at' => now(),
                 ]
             );
 
-            Auth::login($user);
+            Auth::login($user, true); // true = remember me
 
-            return redirect()->route('dashboard');
+            return redirect()->intended(route('dashboard'));
 
-        } catch (\Exception $e) {
-            return redirect('/login')->with('error', 'Gagal login pakai Google!');
+        } catch (\Throwable $e) {
+            report($e); 
+            return redirect('/login')
+                ->with('error', 'Gagal login Google: ' . $e->getMessage());
         }
     }
 }

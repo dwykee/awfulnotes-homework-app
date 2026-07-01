@@ -202,10 +202,19 @@
 
         /* ─── WAVE DIVIDER ─────────────────────────── */
         .section-wave-divider {
-            position: relative; z-index: 5;
-            margin-top: -2px; line-height: 0;
+        position: absolute;
+        left: 0;
+        bottom: -1px;           
+        width: 100%;
+        line-height: 0;         
+        z-index: 2;
         }
-        .section-wave-divider svg { display: block; width: 100%; }
+
+        .section-wave-divider svg {
+        display: block;         
+        width: 100%;
+        height: 80px;           
+        }
 
         /* ─── PAIN SECTION ─────────────────────────── */
         .section-pain {
