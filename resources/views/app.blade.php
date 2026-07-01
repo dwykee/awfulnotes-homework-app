@@ -4,6 +4,8 @@
         <meta charset="utf-8">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/svg+xml" href="{{ asset('images/logoA.svg') }}">
+        <link rel="icon" type="image/png" href="{{ asset('images/logoA.png') }}">
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
