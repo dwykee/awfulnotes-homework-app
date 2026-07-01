@@ -12,7 +12,7 @@ class AiController extends Controller
     public function chat(Request $request)
     {
         $userMessage = trim($request->input('message', ''));
-        $userId      = auth()->id();
+        $userId = $request->user()?->id;
 
         if ($userMessage === '') {
             return response()->json(['reply' => 'Mau nanya apa nih? 😄', 'action' => false]);
